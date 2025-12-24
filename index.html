@@ -92,6 +92,7 @@
   .moon{
     font-size:95px;
     animation:fadeIn 2.2s forwards;
+    margin-bottom:6px;
   }
 
   @keyframes fadeIn{
@@ -155,17 +156,14 @@
 <!-- PAGE 5 -->
 <div class="screen" id="s5">
   <div class="animated-text" id="lines2"></div>
-  <button onclick="go(6)">Next</button>
+  <button onclick="go(6); showClosingLines();">Next</button>
 </div>
 
 <!-- PAGE 6 -->
 <div class="screen" id="s6">
   <div class="moon">🌙</div>
 
-  <p style="margin-top:14px;">
-    Under this quiet sky with the moon and little stars,
-    I am simply grateful that you exist.
-  </p>
+  <div class="animated-text" id="closingLines"></div>
 
   <div class="sign">EREN</div>
 </div>
@@ -258,9 +256,29 @@ function showLines2(){
     box.appendChild(span);
   });
 }
+
+function showClosingLines(){
+  const text = [
+    "The sky feels calm and quiet tonight.",
+    "Thank you for reading this with such a gentle heart.",
+    "I just wanted to leave a little smile with you.",
+    "No pressure and no rush, only warmth and honesty.",
+    "May your days stay soft and full of peaceful light.",
+    "I am truly grateful that you exist."
+  ];
+
+  const box = document.getElementById("closingLines");
+  box.innerHTML = "";
+
+  text.forEach((t,i)=>{
+    const span = document.createElement("span");
+    span.style.animationDelay = (0.45*i)+"s";
+    span.innerText = t;
+    box.appendChild(span);
+  });
+}
 </script>
 
 </body>
 </html>
-
 
