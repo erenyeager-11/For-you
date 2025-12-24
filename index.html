@@ -50,8 +50,6 @@
     margin-top:18px;
   }
 
-  button:hover{opacity:.9;}
-
   .bulb{
     width:120px;
     height:120px;
@@ -122,7 +120,7 @@
 <!-- PAGE 1 -->
 <div class="screen show" id="s1">
   <p>Pull the wire gently 👇</p>
-  <button onclick="glowBulb()">Pull Wire</button>
+  <button onclick="glowBulb()">TAP</button>
   <div class="bulb" id="bulb"></div>
   <button id="next1" style="display:none" onclick="go(2)">Next</button>
 </div>
@@ -132,11 +130,10 @@
   <h3>Play a song first? 🎵</h3>
 
   <button onclick="playSong1()">Yes</button>
-
   <button onclick="skipSong()">No</button>
 
   <p id="noline" class="soft-note" style="display:none;">
-    No… but let it be ✨
+    No, but let it be ✨
   </p>
 
   <audio id="song1" src="song1.mp3"></audio>
@@ -161,19 +158,22 @@
   <button onclick="go(6)">Next</button>
 </div>
 
-<!-- PAGE 6 — MOON + STARS CLOSURE -->
+<!-- PAGE 6 -->
 <div class="screen" id="s6">
   <div class="moon">🌙</div>
 
   <p style="margin-top:14px;">
-    Under the same sky… somewhere between the moon and the stars  
-    I’m just quietly grateful for you. ⭐
+    Under this quiet sky with the moon and little stars,
+    I am simply grateful that you exist.
   </p>
 
-  <div class="sign">— EREN</div>
+  <div class="sign">EREN</div>
 </div>
 
 <script>
+let song1 = document.getElementById("song1");
+let song2 = document.getElementById("song2");
+
 function go(n){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("show"));
   document.getElementById("s"+n).classList.add("show");
@@ -185,25 +185,34 @@ function glowBulb(){
 }
 
 function playSong1(){
-  document.getElementById("song1").play();
+  song1.currentTime = 0;
+  song1.play();
   showLines1();
   go(3);
 }
 
 function skipSong(){
-  document.getElementById("noline").style.display="block";
-  setTimeout(()=>{ showLines1(); go(3); },1000);
+  const line = document.getElementById("noline");
+  line.style.display = "block";
+
+  song1.currentTime = 0;
+  song1.play();
+
+  setTimeout(()=>{
+    showLines1();
+    go(3);
+  }, 900);
 }
 
 function showLines1(){
   const text = [
-    "Hey, this for you 🌸",
-    "Not perfect… but from my heart.",
-    "You have this calm, peaceful vibe.",
-    "Even your tiny smiles feel warm.",
-    "You make days feel a little lighter.",
-    "So I wanted to say something",
-    "just slowly, gently… ✨"
+    "Hey, I made this for you 🌸",
+    "It may be simple but it is from my heart.",
+    "You have such a calm and beautiful vibe.",
+    "Your little smiles feel like sunshine.",
+    "You make everything feel softer and nicer.",
+    "I wanted to share what I feel",
+    "slowly and gently, with care ✨"
   ];
   const box = document.getElementById("lines1");
   box.innerHTML="";
@@ -216,24 +225,29 @@ function showLines1(){
 }
 
 function heartTap(){
-  document.getElementById("song2").play();
+  song1.pause();
+  song1.currentTime = 0;
+
+  song2.currentTime = 0;
+  song2.play();
+
   go(5);
   showLines2();
 }
 
 function showLines2(){
   const text = [
-    "You’re kind and I really admire that.",
-    "You don’t try to impress… you just be you.",
-    "And that’s honestly beautiful.",
-    "I notice your effort, even the small ones.",
-    "I like how gentle your presence feels.",
-    "You deserve respect, honesty and care.",
-    "I’m really glad I crossed paths with you.",
-    "Sometimes I don’t say it directly",
-    "but I genuinely appreciate you.",
+    "You are genuinely kind and I admire you so much.",
+    "You stay yourself and that makes you special.",
+    "Your honesty feels softly beautiful.",
+    "I notice the little things you do.",
+    "Your presence feels warm and peaceful.",
+    "You deserve care, respect and gentle love.",
+    "I am really happy I met you.",
+    "Even when I stay quiet, I still care.",
+    "You make my world feel a little brighter.",
     "Thank you for being you.",
-    "Stay safe, stay soft, stay you 🌷"
+    "Stay safe, stay soft, stay happy 🌷"
   ];
   const box = document.getElementById("lines2");
   box.innerHTML="";
@@ -248,3 +262,4 @@ function showLines2(){
 
 </body>
 </html>
+
