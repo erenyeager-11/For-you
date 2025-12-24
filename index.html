@@ -128,6 +128,7 @@
 
 <!-- PAGE 2 -->
 <div class="screen" id="s2">
+  <img src="cat.png" alt="Cute Cat" style="width:120px; margin:15px auto; display:block;">
   <h3>Play a song first? 🎵</h3>
 
   <button onclick="playSong1()">Yes</button>
@@ -196,10 +197,7 @@ function skipSong(){
   song1.currentTime = 0;
   song1.play();
 
-  setTimeout(()=>{
-    showLines1();
-    go(3);
-  }, 900);
+  setTimeout(()=>{ showLines1(); go(3); }, 900);
 }
 
 function showLines1(){
