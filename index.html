@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Special Letter</title>
+
+<style>
+  body{
+    margin:0;
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at top , #1d2233, #0a0c12);
+    color:white;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    position:relative;
+  }
+
+  body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(#ffffff40 1px, transparent 2px);
+    background-size:3px 3px;
+    opacity:.25;
+    pointer-events:none;
+  }
+
+  .screen{
+    display:none;
+    text-align:center;
+    width:90%;
+    max-width:450px;
+    z-index:2;
+  }
+
+  .show{display:block;}
+
+  button{
+    background:#fff;
+    color:#0f0f14;
+    border:none;
+    padding:10px 18px;
+    border-radius:14px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:18px;
+  }
+
+  button:hover{opacity:.9;}
+
+  .bulb{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    margin:25px auto;
+    background:#222;
+    box-shadow:0 0 0px #ffd85e;
+    transition:.45s;
+  }
+
+  .glow{
+    background:#ffd85e;
+    box-shadow:0 0 45px #ffd85e;
+  }
+
+  .animated-text span{
+    opacity:0;
+    display:block;
+    margin:6px 0;
+    animation:fade 1s forwards;
+  }
+
+  @keyframes fade{
+    from{opacity:0; transform:translateY(6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .heart{
+    font-size:70px;
+    cursor:pointer;
+    animation:pulse 1.6s infinite;
+  }
+
+  @keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+    100%{transform:scale(1);}
+  }
+
+  .moon{
+    font-size:95px;
+    animation:fadeIn 2.2s forwards;
+  }
+
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .soft-note{
+    margin-top:10px;
+    font-size:14px;
+    opacity:.9;
+    font-style:italic;
+  }
+
+  .sign{
+    margin-top:18px;
+    opacity:.9;
+    font-style:italic;
+    letter-spacing:.5px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="screen show" id="s1">
+  <p>Pull the wire gently 👇</p>
+  <button onclick="glowBulb()">Pull Wire</button>
+  <div class="bulb" id="bulb"></div>
+  <button id="next1" style="display:none" onclick="go(2)">Next</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="screen" id="s2">
+  <h3>Play a song first? 🎵</h3>
+
+  <button onclick="playSong1()">Yes</button>
+
+  <button onclick="skipSong()">No</button>
+
+  <p id="noline" class="soft-note" style="display:none;">
+    No… but let it be ✨
+  </p>
+
+  <audio id="song1" src="song1.mp3"></audio>
+</div>
+
+<!-- PAGE 3 -->
+<div class="screen" id="s3">
+  <div class="animated-text" id="lines1"></div>
+  <button onclick="go(4)">Next</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="screen" id="s4">
+  <p>Tap the heart 💗</p>
+  <div class="heart" onclick="heartTap()">❤️</div>
+  <audio id="song2" src="song2.mp3"></audio>
+</div>
+
+<!-- PAGE 5 -->
+<div class="screen" id="s5">
+  <div class="animated-text" id="lines2"></div>
+  <button onclick="go(6)">Next</button>
+</div>
+
+<!-- PAGE 6 — MOON + STARS CLOSURE -->
+<div class="screen" id="s6">
+  <div class="moon">🌙</div>
+
+  <p style="margin-top:14px;">
+    Under the same sky… somewhere between the moon and the stars  
+    I’m just quietly grateful for you. ⭐
+  </p>
+
+  <div class="sign">— EREN</div>
+</div>
+
+<script>
+function go(n){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("show"));
+  document.getElementById("s"+n).classList.add("show");
+}
+
+function glowBulb(){
+  document.getElementById("bulb").classList.add("glow");
+  document.getElementById("next1").style.display="inline-block";
+}
+
+function playSong1(){
+  document.getElementById("song1").play();
+  showLines1();
+  go(3);
+}
+
+function skipSong(){
+  document.getElementById("noline").style.display="block";
+  setTimeout(()=>{ showLines1(); go(3); },1000);
+}
+
+function showLines1(){
+  const text = [
+    "Hey, this for you 🌸",
+    "Not perfect… but from my heart.",
+    "You have this calm, peaceful vibe.",
+    "Even your tiny smiles feel warm.",
+    "You make days feel a little lighter.",
+    "So I wanted to say something",
+    "just slowly, gently… ✨"
+  ];
+  const box = document.getElementById("lines1");
+  box.innerHTML="";
+  text.forEach((t,i)=>{
+    const span=document.createElement("span");
+    span.style.animationDelay = (0.4*i)+"s";
+    span.innerText=t;
+    box.appendChild(span);
+  });
+}
+
+function heartTap(){
+  document.getElementById("song2").play();
+  go(5);
+  showLines2();
+}
+
+function showLines2(){
+  const text = [
+    "You’re kind and I really admire that.",
+    "You don’t try to impress… you just be you.",
+    "And that’s honestly beautiful.",
+    "I notice your effort, even the small ones.",
+    "I like how gentle your presence feels.",
+    "You deserve respect, honesty and care.",
+    "I’m really glad I crossed paths with you.",
+    "Sometimes I don’t say it directly",
+    "but I genuinely appreciate you.",
+    "Thank you for being you.",
+    "Stay safe, stay soft, stay you 🌷"
+  ];
+  const box = document.getElementById("lines2");
+  box.innerHTML="";
+  text.forEach((t,i)=>{
+    const span=document.createElement("span");
+    span.style.animationDelay = (0.35*i)+"s";
+    span.innerText=t;
+    box.appendChild(span);
+  });
+}
+</script>
+
+</body>
+</html>
